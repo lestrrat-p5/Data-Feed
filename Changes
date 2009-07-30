@@ -1,0 +1,44 @@
+Changes
+=======
+
+0.00009 - 20 Mar 2009
+  - No changes to code, just use newer M::I::Any::Moose
+
+0.00008 - 19 Mar 2009
+  - Any::Moose me!
+
+0.00007 - 21 Oct 2008
+  - Fix a bunch of minor problems.
+    * as_xml() properly implemented
+    * Creating feeds is now much more functional
+    * Add tagline()
+  - Added selected tests fro XML::Feed 0.21 for more coverage
+
+0.00006 - 08 Sep 2008
+  - Recent versions of Moose (properly) unimport blessed() and confess(), 
+    which breaks my code depending on it.
+
+0.00005 - 06 Aug 2008
+  - Attempt to fix tests by using Test::UseAllModules (rt #38233)
+
+0.00004 - 06 Aug 2008
+  - Make XML::RSS::LibXML a hard dependency (rt #38173)
+    While CPAN will force you to install XML::RSS::LibXML, you /can/
+    use XML::RSS as the backend parser. However, some features,
+    such as enclosures, will not properly work.
+  - Allow specification of RSS parser via DATA_FEED_RSS_PARSERS
+    environment variable
+  - Fix bugs calling methods from a previous life that no longer exist
+  - Make tests not rely on slow network connection
+
+0.00003 - 28 Jul 2008
+  - Add media_contents() so that MediaRSS can be handled (33rpm)
+  - Tweak the tests to make network-dependent tests more reliable
+  - Silence potential warnings
+
+0.00002 - 25 Jul 2008
+  - Update dependencies
+  - Fix network detection
+
+0.00001 - 24 Jul 2008
+  - Initial release
