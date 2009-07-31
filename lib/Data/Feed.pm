@@ -5,7 +5,7 @@ use Scalar::Util ();
 use URI::Fetch;
 use constant DEBUG => exists $ENV{DATA_FEED_DEBUG} ? $ENV{DATA_FEED_DEBUG} : 0;
 
-our $VERSION = '0.00009';
+our $VERSION = '0.00010';
 our $AUTHORITY = 'cpan:DMAKI';
 
 has 'parser' => (

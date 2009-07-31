@@ -1,6 +1,9 @@
 Changes
 =======
 
+0.00010 - 31 Jul 2009
+  - Allow initialization of fields feed/item
+
 0.00009 - 20 Mar 2009
   - No changes to code, just use newer M::I::Any::Moose
 
