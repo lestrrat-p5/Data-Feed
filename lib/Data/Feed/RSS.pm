@@ -13,15 +13,8 @@ __PACKAGE__->meta->make_immutable;
 
 no Any::Moose;
 
-sub BUILDARGS {
-    my $class = shift;
-    my $args  = @_ == 1 ? $_[0] : { @_ };
-
-    $args->{feed} ||= $Data::Feed::Parser::RSS::PARSER_CLASS->new(
-        version => '2.0'
-    );
-    
-    return $args;
+sub _build_feed {
+    return $Data::Feed::Parser::RSS::PARSER_CLASS->new( version => '2.0');
 }
 
 sub format { 'RSS ' . $_[0]->feed->{version} }

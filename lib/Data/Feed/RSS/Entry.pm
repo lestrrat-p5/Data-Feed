@@ -14,14 +14,10 @@ __PACKAGE__->meta->make_immutable;
 
 no Any::Moose;
 
-sub BUILDARGS {
-    my $class = shift;
-    my $args  = @_ == 1 ? $_[0] : { @_ };
-
-    $args->{entry} ||= {};
-    
-    return $args;
+sub _build_entry {
+    return {}
 }
+
 sub title {
     my ($self, @args) = @_;
     my $item = $self->entry;

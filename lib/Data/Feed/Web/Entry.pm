@@ -1,5 +1,3 @@
-# $Id: /mirror/coderepos/lang/perl/Data-Feed/trunk/lib/Data/Feed/Web/Entry.pm 102544 2009-03-19T08:58:09.853141Z daisuke  $
-
 package Data::Feed::Web::Entry;
 use Any::Moose '::Role';
 use Data::Feed::Web::Enclosure;
@@ -10,7 +8,22 @@ has 'entry' => (
     is => 'rw',
     isa => 'HashRef',
     required => 1,
+    lazy_build => 1,
 );
+
+sub _build_entry {}
+
+sub BUILD {
+    my ($self, $args) = @_;
+
+    my $entry = $self->entry;
+    foreach my $method qw( title link content summary category author id issued modified ) {
+        if (exists $args->{$method}) {
+            $self->$method( $args->{ $method } );
+        }
+    }
+    return $self;
+}
 
 requires 'title';
 requires 'link';

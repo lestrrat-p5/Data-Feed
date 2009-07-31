@@ -1,12 +1,8 @@
-# $Id: /mirror/coderepos/lang/perl/Data-Feed/trunk/lib/Data/Feed.pm 102566 2009-03-20T01:59:02.444375Z daisuke  $
-
 package Data::Feed;
-use 5.008;
 use Any::Moose;
 use Carp();
 use Scalar::Util ();
 use URI::Fetch;
-
 use constant DEBUG => exists $ENV{DATA_FEED_DEBUG} ? $ENV{DATA_FEED_DEBUG} : 0;
 
 our $VERSION = '0.00009';

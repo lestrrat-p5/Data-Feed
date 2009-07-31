@@ -1,5 +1,3 @@
-# $Id: /mirror/coderepos/lang/perl/Data-Feed/trunk/lib/Data/Feed/Atom/Entry.pm 102544 2009-03-19T08:58:09.853141Z daisuke  $
-
 package Data::Feed::Atom::Entry;
 use Any::Moose;
 use Data::Feed::Web::Content;
@@ -26,13 +24,7 @@ BEGIN {
     }
 }
 
-sub BUILDARGS {
-    my $class = shift;
-    my $args  = @_ == 1 ? $_[0] : { @_ };
-
-    $args->{entry} ||= XML::Atom::Entry->new();
-    return $args;
-}
+sub _build_entry { return XML::Atom::Entry->new() }
 
 sub link {
     my $entry = shift;

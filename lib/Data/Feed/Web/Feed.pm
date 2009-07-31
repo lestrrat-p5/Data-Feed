@@ -1,11 +1,28 @@
-# $Id: /mirror/coderepos/lang/perl/Data-Feed/trunk/lib/Data/Feed/Web/Feed.pm 102544 2009-03-19T08:58:09.853141Z daisuke  $
-
 package Data::Feed::Web::Feed;
 use Any::Moose '::Role';
 
 has 'feed' => (
-    is => 'rw',
+    is => 'ro',
+    lazy_build => 1,
 );
+
+sub _build_feed {}
+
+sub BUILD {
+    my ($self, $args) = @_;
+
+    foreach my $method qw( author copyright description format generator language link modified title ) {
+        if ( exists $args->{$method} ) {
+            $self->$method( $args->{$method} );
+        }
+    }
+
+    if ($args->{entries}) {
+        $self->add_entry($_) for @{ $args->{entries} };
+    }
+
+    return $self;
+}
 
 requires qw(
     add_entry

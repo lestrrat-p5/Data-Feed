@@ -1,5 +1,3 @@
-# $Id: /mirror/coderepos/lang/perl/Data-Feed/trunk/lib/Data/Feed/Atom.pm 102544 2009-03-19T08:58:09.853141Z daisuke  $
-
 package Data::Feed::Atom;
 use Any::Moose;
 use Data::Feed::Atom::Entry;
@@ -8,13 +6,6 @@ use XML::Atom::Person;
 use XML::Atom::Util qw( iso2dt );
 use List::Util qw( first );
 use DateTime::Format::W3CDTF;
-
-with 'Data::Feed::Web::Feed';
-
-__PACKAGE__->meta->make_immutable;
-
-no Any::Moose;
-
 use constant format => 'Atom';
 
 BEGIN {
@@ -27,12 +18,14 @@ BEGIN {
     }
 }
 
-sub BUILDARGS {
-    my $class = shift;
-    my $args  = @_ == 1 ? $_[0] : { @_ };
+with 'Data::Feed::Web::Feed';
 
-    $args->{feed} ||= XML::Atom::Feed->new;
-    return $args;
+__PACKAGE__->meta->make_immutable;
+
+no Any::Moose;
+
+sub _build_feed {
+    return XML::Atom::Feed->new;
 }
 
 sub link {
