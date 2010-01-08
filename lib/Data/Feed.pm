@@ -86,9 +86,9 @@ sub guess_format {
 
         $tag =~ s/^.*://;
 
-        if ($tag eq 'rss' || $tag eq 'RDF') {
+        if ($tag =~ /^(?:rss|rdf)$/i) {
             return 'RSS';
-        } elsif ($tag eq 'feed') {
+        } elsif ($tag =~ /^feed$/i) {
             return 'Atom';
         }
     }
