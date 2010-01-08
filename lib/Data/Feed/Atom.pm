@@ -9,12 +9,12 @@ use DateTime::Format::W3CDTF;
 use constant format => 'Atom';
 
 BEGIN {
-    my %methods = map { ($_ => $_) }
+    my %methods = map { ( $_ => $_ ) }
         qw(title copyright language generator id updated tagline as_xml);
     $methods{description} = 'tagline';
-    while (my($name, $proxy) = each %methods) {
-        no strict 'refs';
-        *{$name} = sub { shift->feed->$proxy(@_) }
+    while ( my ( $name, $proxy ) = each %methods ) {
+        __PACKAGE__->meta->add_method(
+            $name => sub { shift->feed->$proxy(@_) } );
     }
 }
 

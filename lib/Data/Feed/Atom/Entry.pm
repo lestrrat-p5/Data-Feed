@@ -16,11 +16,10 @@ __PACKAGE__->meta->make_immutable;
 no Any::Moose;
 
 BEGIN {
-    my %methods = map { ($_ => $_) }
-        qw(title updated);
-    while (my($name, $proxy) = each %methods) {
-        no strict 'refs';
-        *{$name} = sub { shift->entry->$proxy(@_) }
+    my %methods = map { ( $_ => $_ ) } qw(title updated);
+    while ( my ( $name, $proxy ) = each %methods ) {
+        __PACKAGE__->meta->add_method(
+            $name => sub { shift->entry->$proxy(@_) } );
     }
 }
 
