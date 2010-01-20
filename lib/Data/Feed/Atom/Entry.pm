@@ -28,24 +28,29 @@ sub _build_entry { return XML::Atom::Entry->new() }
 sub link {
     my $entry = shift;
     if (@_) {
-        $entry->{entry}->add_link({ rel => 'alternate', href => $_[0],
+        $entry->entry->add_link({ rel => 'alternate', href => $_[0],
                                     type => 'text/html', });
     } else {
-        my $l = first { !defined $_->rel || $_->rel eq 'alternate' } $entry->{entry}->link;
+        my $l = first { !defined $_->rel || $_->rel eq 'alternate' } $entry->entry->link;
         $l ? $l->href : undef;
     }
+}
+
+sub links {
+    my $entry = shift;
+    return $entry->entry->link;
 }
 
 sub summary {
     my $entry = shift;
     if (@_) {
-        $entry->{entry}->summary(
+        $entry->entry->summary(
             (Scalar::Util::blessed($_[0]) || '') eq 'Data:::Feed::Web::Content' ?
                 $_[0]->body : $_[0]
         );
     } else {
         Data::Feed::Web::Content->new( type => 'html',
-                                   body => $entry->{entry}->summary );
+                                   body => $entry->entry->summary );
     }
 }
 
@@ -58,9 +63,9 @@ sub content {
         } else {
             %param = (Body => $_[0]);
         }
-        $entry->{entry}->content(XML::Atom::Content->new(%param, Version => 1.0));
+        $entry->entry->content(XML::Atom::Content->new(%param, Version => 1.0));
     } else {
-        my $c = $entry->{entry}->content;
+        my $c = $entry->entry->content;
 
         # map Atom types to MIME types
         my $type = $c ? $c->type : undef;
@@ -78,10 +83,10 @@ sub category {
     my $entry = shift;
     my $ns = XML::Atom::Namespace->new(dc => 'http://purl.org/dc/elements/1.1/');
     if (@_) {
-        $entry->{entry}->add_category({ term => $_[0] });
+        $entry->entry->add_category({ term => $_[0] });
     } else {
-        my $category = $entry->{entry}->category;
-        $category ? ($category->label || $category->term) : $entry->{entry}->get($ns, 'subject');
+        my $category = $entry->entry->category;
+        $category ? ($category->label || $category->term) : $entry->entry->get($ns, 'subject');
     }
 }
 
@@ -90,29 +95,29 @@ sub author {
     if (@_ && $_[0]) {
         my $person = XML::Atom::Person->new(Namespace => $entry->entry->ns, Version => 1.0);
         $person->name($_[0]);
-        $entry->{entry}->author($person);
+        $entry->entry->author($person);
     } else {
-        $entry->{entry}->author ? $entry->{entry}->author->name : undef;
+        $entry->entry->author ? $entry->entry->author->name : undef;
     }
 }
 
-sub id { shift->{entry}->id(@_) }
+sub id { shift->entry->id(@_) }
 
 sub issued {
     my $entry = shift;
     if (@_) {
-        $entry->{entry}->issued(DateTime::Format::W3CDTF->format_datetime($_[0])) if $_[0];
+        $entry->entry->issued(DateTime::Format::W3CDTF->format_datetime($_[0])) if $_[0];
     } else {
-        $entry->{entry}->issued ? iso2dt($entry->{entry}->issued) : undef;
+        $entry->entry->issued ? iso2dt($entry->entry->issued) : undef;
     }
 }
 
 sub modified {
     my $entry = shift;
     if (@_) {
-        $entry->{entry}->modified(DateTime::Format::W3CDTF->format_datetime($_[0])) if $_[0];
+        $entry->entry->modified(DateTime::Format::W3CDTF->format_datetime($_[0])) if $_[0];
     } else {
-        $entry->{entry}->modified ? iso2dt($entry->{entry}->modified) : undef;
+        $entry->entry->modified ? iso2dt($entry->entry->modified) : undef;
     }
 }
 
@@ -122,7 +127,7 @@ sub enclosures {
     die if @_;
 
     my @enclosures;
-    for my $link ( grep { defined $_->rel && $_->rel eq 'enclosure' } $self->{entry}->link ) {
+    for my $link ( grep { defined $_->rel && $_->rel eq 'enclosure' } $self->entry->link ) {
         my $enclosure = Data::Feed::Web::Enclosure->new(
             url => $link->href,
         );
