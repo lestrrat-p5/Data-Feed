@@ -36,6 +36,11 @@ sub link {
     }
 }
 
+sub links {
+    my $item = shift->entry;
+    return ( $item->{link} );
+}
+
 sub summary {
     my $item = shift->entry;
 
