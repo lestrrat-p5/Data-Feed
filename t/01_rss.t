@@ -1,5 +1,5 @@
 use strict;
-use Test::More (tests => 25);
+use Test::More (tests => 26);
 
 BEGIN {
     use_ok("Data::Feed");
@@ -39,6 +39,7 @@ SKIP: {
 
     my @entries = $rss->entries;
     is( @entries, 15 );
+    ok($entries[0]->links, "got links from the entry");
 
     for my $entry (@entries) {
         ok( $entry->enclosures, "enclosures for entry are ok" );
