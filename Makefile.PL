@@ -8,7 +8,7 @@ all_from('lib/Data/Feed.pm');
 requires 'DateTime::Format::Mail';
 requires 'DateTime::Format::W3CDTF';
 requires 'List::Util';
-requires 'URI::Fetch';
+requires 'LWP::UserAgent';
 requires 'XML::Atom';
 requires 'XML::RSS::LibXML';
 requires_any_moose;
