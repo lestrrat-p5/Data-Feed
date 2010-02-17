@@ -2,7 +2,7 @@ package Data::Feed;
 use Any::Moose;
 use Carp();
 use Scalar::Util ();
-use URI::Fetch;
+use LWP::UserAgent;
 use constant DEBUG => exists $ENV{DATA_FEED_DEBUG} ? $ENV{DATA_FEED_DEBUG} : 0;
 
 our $VERSION = '0.00010';
@@ -97,31 +97,42 @@ sub guess_format {
 }
 
 sub fetch_stream {
-    my ($self, $stream) = @_;
+    my ( $self, $stream ) = @_;
 
     my $content = '';
     my $ref = ref $stream || '';
-    if (! $ref ) {
+    if ( !$ref ) {
+
         # if given a string, it's a filename
         open( my $fh, '<', $stream )
             or Carp::confess("Could not open file $stream: $!");
         $content = do { local $/; <$fh> };
         close $fh;
-    } else {
+    }
+    else {
         if ( Scalar::Util::blessed $stream && $stream->isa('URI') ) {
-            # XXX - Shouldn't using LWP suffice here?
-            my $res = URI::Fetch->fetch($stream)
-                or Carp::confess("Failed to fetch URI $stream: " . URI::Fetch->errstr);
 
-            if ( $res->status == URI::Fetch::URI_GONE() ) {
+            # XXX - Shouldn't using LWP suffice here?
+            my $ua = LWP::UserAgent->new();
+            $ua->env_proxy;
+            my ( $res, $req );
+            $req = HTTP::Request->new( GET => $stream );
+            $req->header( 'Accept-Encoding', 'gzip' );
+            $res = $ua->req($req)
+                or Carp::confess(
+                "Failed to fetch URI $stream: " . $res->status_line );
+            if ( $res->code == 410 ) {
                 Carp::confess("This feed has been permanently removed");
             }
-            $content = $res->content;
-        } elsif ( $ref eq 'SCALAR' ) {
+            $content = $res->decoded_content;
+        }
+        elsif ( $ref eq 'SCALAR' ) {
             $content = $$stream;
-        } elsif ( $ref eq 'GLOB' ) {
+        }
+        elsif ( $ref eq 'GLOB' ) {
             $content = do { local $/; <$stream> };
-        } else {
+        }
+        else {
             Carp::confess("Don't know how to fetch '$ref'");
         }
     }
