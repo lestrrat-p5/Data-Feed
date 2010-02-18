@@ -1,9 +1,14 @@
 Changes
 =======
 
-0.00011 - 
+0.00012 - 
   - Added `parse_datetime()`, `parse_w3cdtf_date()`, and `parse_mail_date()`.
-    These methods are used to parse dates from the feeds.
+    These methods are used to parse dates from the feeds. (theory)
+
+0.00011 - 18 Feb 2010
+  - Tweak regexp (franckcuny)
+  - Use LWP instead of URI::Fetch (franckcuny)
+  - Moose-y fixes (franckcuny)
 
 0.00010 - 31 Jul 2009
   - Allow initialization of fields feed/item
