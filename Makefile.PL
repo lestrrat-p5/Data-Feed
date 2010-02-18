@@ -20,5 +20,6 @@ test_requires('Test::More');
 test_requires('Test::UseAllModules');
 
 tests('t/*.t t/*/*.t');
+auto_set_repository;
 
 WriteAll;
