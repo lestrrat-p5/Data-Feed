@@ -1,4 +1,3 @@
-# $Id$
 
 package Data::Feed::RSS::Entry;
 use Any::Moose;

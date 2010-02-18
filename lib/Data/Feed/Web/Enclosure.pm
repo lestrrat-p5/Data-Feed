@@ -1,4 +1,3 @@
-# $Id$
 
 package Data::Feed::Web::Enclosure;
 

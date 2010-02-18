@@ -1,4 +1,3 @@
-# $Id: /mirror/coderepos/lang/perl/Data-Feed/trunk/lib/Data/Feed/Parser/RSS.pm 102545 2009-03-19T09:01:21.269149Z daisuke  $
 
 package Data::Feed::Parser::RSS;
 use Any::Moose;
