@@ -1,4 +1,8 @@
-use strict;
+sub author_tests  { }
+sub use_test_base { warn "You need to install Test::Base to run make test from git clone" }
+sub readme_from   { }
+sub auto_set_repository { }
+
 use inc::Module::Install;
 
 name('Data-Feed');
@@ -21,5 +25,6 @@ test_requires('Test::UseAllModules');
 
 tests('t/*.t t/*/*.t');
 auto_set_repository;
+author_tests 'xt';
 
 WriteAll;
