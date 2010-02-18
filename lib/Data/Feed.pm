@@ -118,7 +118,7 @@ sub fetch_stream {
             my ( $res, $req );
             $req = HTTP::Request->new( GET => $stream );
             $req->header( 'Accept-Encoding', 'gzip' );
-            $res = $ua->req($req)
+            $res = $ua->request($req)
                 or Carp::confess(
                 "Failed to fetch URI $stream: " . $res->status_line );
             if ( $res->code == 410 ) {
