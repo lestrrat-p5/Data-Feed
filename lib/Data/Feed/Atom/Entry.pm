@@ -50,7 +50,7 @@ sub summary {
         );
     } else {
         Data::Feed::Web::Content->new( type => 'html',
-                                   body => $entry->entry->summary );
+                                   body => $entry->entry->summary || '' );
     }
 }
 
@@ -65,17 +65,17 @@ sub content {
         }
         $entry->entry->content(XML::Atom::Content->new(%param, Version => 1.0));
     } else {
-        my $c = $entry->entry->content or return;
+        my $c = $entry->entry->content;
 
         # map Atom types to MIME types
-        my $type = $c ? $c->type : undef;
+        my $type = $c ? $c->type : 'text';
         if ($type) {
             $type = 'text/html'  if $type eq 'xhtml' || $type eq 'html';
             $type = 'text/plain' if $type eq 'text';
         }
 
         Data::Feed::Web::Content->new( type => $type,
-                                   body => $c ? $c->body : undef );
+                                   body => $c ? $c->body : '' );
     }
 }
 
