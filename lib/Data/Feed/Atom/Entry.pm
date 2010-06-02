@@ -65,7 +65,7 @@ sub content {
         }
         $entry->entry->content(XML::Atom::Content->new(%param, Version => 1.0));
     } else {
-        my $c = $entry->entry->content;
+        my $c = $entry->entry->content or return;
 
         # map Atom types to MIME types
         my $type = $c ? $c->type : undef;
