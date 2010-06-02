@@ -1,7 +1,7 @@
 Changes
 =======
 
-0.00012 - 
+0.00012 - 3 Jun 2010
   - Added `parse_datetime()`, `parse_w3cdtf_date()`, and `parse_mail_date()`.
     These methods are used to parse dates from the feeds. (theory)
 
