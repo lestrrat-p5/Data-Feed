@@ -3,7 +3,6 @@ use Any::Moose;
 use Data::Feed::Atom::Entry;
 use XML::Atom::Feed;
 use XML::Atom::Person;
-use XML::Atom::Util qw( iso2dt );
 use List::Util qw( first );
 use DateTime::Format::W3CDTF;
 use constant format => 'Atom';
@@ -56,7 +55,7 @@ sub modified {
     if (@_) {
         $self->feed->modified(DateTime::Format::W3CDTF->format_datetime($_[0]));
     } else {
-        $self->feed->modified ? iso2dt($self->feed->modified) : undef;
+        return Data::Feed->parse_w3cdtf_date($self->feed->modified);
     }
 }
 

@@ -5,7 +5,6 @@ use Any::Moose;
 use Data::Feed::Parser::RSS;
 use Data::Feed::RSS::Entry;
 use DateTime::Format::Mail;
-use DateTime::Format::W3CDTF;
 
 with 'Data::Feed::Web::Feed';
 
@@ -82,15 +81,8 @@ sub modified {
         #$rss->channel->{dc}{date} =
         #    DateTime::Format::W3CDTF->format_datetime($_[0]);
     } else {
-        my $date;
-        eval {
-            if (my $ts = $feed->channel('pubDate')) {
-                $date = DateTime::Format::Mail->parse_datetime($ts);
-            } elsif ($ts = $feed->channel->{dc}{date}) {
-                $date = DateTime::Format::W3CDTF->parse_datetime($ts);
-            }
-        };
-        return $date;
+        return Data::Feed->parse_mail_date($feed->channel('pubDate'))
+            || Data::Feed->parse_w3cdtf_date($feed->channel->{dc}{date});
     }
 }
 

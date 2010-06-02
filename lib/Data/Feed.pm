@@ -3,6 +3,12 @@ use Any::Moose;
 use Carp();
 use Scalar::Util ();
 use LWP::UserAgent;
+use DateTime::Format::Mail;
+use DateTime::Format::W3CDTF;
+use DateTime::Format::Natural;
+use DateTime::Format::Flexible;
+use DateTime::Format::ISO8601;
+
 use constant DEBUG => exists $ENV{DATA_FEED_DEBUG} ? $ENV{DATA_FEED_DEBUG} : 0;
 
 our $VERSION = '0.00010';
@@ -140,6 +146,32 @@ sub fetch_stream {
     return \$content;
 }
 
+sub parse_datetime {
+    my ($self, $ts) = @_;
+    return undef unless $ts;
+    return eval { DateTime::Format::ISO8601->parse_datetime($ts) }
+        || eval { DateTime::Format::Flexible->parse_datetime($ts) }
+        || do {
+        my $p = DateTime::Format::Natural->new;
+        my $dt = $p->parse_datetime($ts);
+        $p->success ? $dt : undef;
+    };
+}
+
+sub parse_w3cdtf_date {
+    my ($self, $ts) = @_;
+    return undef unless $ts;
+    return eval { DateTime::Format::W3CDTF->parse_datetime($ts) }
+        || $self->parse_datetime($ts);
+}
+
+sub parse_mail_date {
+    my ($self, $ts) = @_;
+    return undef unless $ts;
+    return eval { DateTime::Format::Mail->new(loose => 1)->parse_datetime($ts) }
+        || $self->parse_datetime($ts);
+};
+
 1;
 
 __END__
@@ -225,6 +257,24 @@ Attempts to find an appropriate parser for the given stream.
 =head2 guess_format($stream)
 
 =head2 fetch_stream($stream)
+
+=head2 parse_datetime($datetime_string)
+
+Parses a datetime string, first trying L<DateTime::Format::ISO8601>, then
+L<DateTime::Format::Flexible>, and finally L<DateTime::Format::Natural>. The
+first one to succeed will have its value returned. If none succeeds, it
+returns C<undef>. Used by the format classes to create the values returned by
+the C<issued()> and C<modified()> methods.
+
+=head2 parse_w3cdtf_date($datetime_string)
+
+Like C<parse_datetime()>, but tries parsing the string with
+L<DateTime::Format::W3CDTF> before falling back on C<parse_datetime()>.
+
+=head2 parse_mail_date($datetime_string)
+
+Like C<parse_datetime()>, but tries parsing the string with
+L<DateTime::Format::Mail> before falling back on C<parse_datetime()>.
 
 =head1 TODO
 

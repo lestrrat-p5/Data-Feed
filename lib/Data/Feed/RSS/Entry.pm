@@ -137,18 +137,8 @@ sub issued {
         $item->{pubDate} = DateTime::Format::Mail->format_datetime($_[0]);
     }
 
-    ## Either of these could die if the format is invalid.
-    my $date;
-    eval {
-        if (my $ts = $item->{pubDate}) {
-            my $parser = DateTime::Format::Mail->new;
-            $parser->loose;
-            $date = $parser->parse_datetime($ts);
-        } elsif ($ts = $item->{dc}{date}) {
-            $date = DateTime::Format::W3CDTF->parse_datetime($ts);
-        }
-    };
-    return $date;
+    return Data::Feed->parse_mail_date($item->{pubDate})
+        || Data::Feed->parse_w3cdtf_date($item->{dc}{date} || $item->{dcterms}{date});
 }
 
 sub modified {
@@ -159,10 +149,10 @@ sub modified {
         $item->{dcterms}{modified} =
             DateTime::Format::W3CDTF->format_datetime($_[0]);
     }
-    
-    if (my $ts = $item->{dcterms}{modified}) {
-        return eval { DateTime::Format::W3CDTF->parse_datetime($ts) };
-    }
+
+    return Data::Feed->parse_w3cdtf_date(
+        $item->{dcterms}{modified} || $item->{atom}{updated}
+    );
     return ();
 }
 

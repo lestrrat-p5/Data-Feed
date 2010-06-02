@@ -1,6 +1,10 @@
 Changes
 =======
 
+0.00011 - 
+  - Added `parse_datetime()`, `parse_w3cdtf_date()`, and `parse_mail_date()`.
+    These methods are used to parse dates from the feeds.
+
 0.00010 - 31 Jul 2009
   - Allow initialization of fields feed/item
 

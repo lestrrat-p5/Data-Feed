@@ -2,7 +2,6 @@ package Data::Feed::Atom::Entry;
 use Any::Moose;
 use Data::Feed::Web::Content;
 use List::Util qw( first );
-use XML::Atom::Util qw( iso2dt );
 use XML::Atom::Entry;
 
 with 'Data::Feed::Web::Entry';
@@ -108,7 +107,7 @@ sub issued {
     if (@_) {
         $entry->entry->issued(DateTime::Format::W3CDTF->format_datetime($_[0])) if $_[0];
     } else {
-        $entry->entry->issued ? iso2dt($entry->entry->issued) : undef;
+        Data::Feed->parse_datetime($entry->entry->issued);
     }
 }
 
@@ -117,7 +116,7 @@ sub modified {
     if (@_) {
         $entry->entry->modified(DateTime::Format::W3CDTF->format_datetime($_[0])) if $_[0];
     } else {
-        $entry->entry->modified ? iso2dt($entry->entry->modified) : undef;
+        Data::Feed->parse_w3cdtf_date($entry->entry->modified);
     }
 }
 
