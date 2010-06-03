@@ -169,11 +169,13 @@ sub enclosures {
 
     my @enclosures;
     for my $enclosure ($self->__enclosures) {
+        delete $enclosure->{length} unless $enclosure->{length};
         push @enclosures, Data::Feed::Web::Enclosure->new(
             %$enclosure
         );
     }
     for my $content ($self->media_contents) {
+        delete $content->{length} unless $content->{length};
         push @enclosures, Data::Feed::Web::Enclosure->new(
             %$content
         );
