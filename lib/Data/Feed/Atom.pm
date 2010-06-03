@@ -3,7 +3,6 @@ use Any::Moose;
 use Data::Feed::Atom::Entry;
 use XML::Atom::Feed;
 use XML::Atom::Person;
-use List::Util qw( first );
 use DateTime::Format::W3CDTF;
 use constant format => 'Atom';
 
@@ -30,12 +29,16 @@ sub _build_feed {
 sub link {
     my $self = shift;
     if (@_) {
-        $self->feed->add_link({ rel => 'alternate', href => $_[0],
+        return $self->feed->add_link({ rel => 'alternate', href => $_[0],
                                   type => 'text/html', });
     } else {
-        my $l = first { !defined $_->rel || $_->rel eq 'alternate' } $self->feed->link;
-        $l ? $l->href : undef;
+        foreach my $link ($self->feed->link) {
+            if (defined $link && ! defined $link->rel || $link->rel eq 'alternate' ) {
+                return $link->href;
+            }
+        }
     }
+    return ();
 }
 
 sub author {

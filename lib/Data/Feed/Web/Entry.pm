@@ -4,15 +4,6 @@ use Data::Feed::Web::Enclosure;
 
 with 'Data::Feed::Item';
 
-has 'entry' => (
-    is => 'rw',
-    isa => 'HashRef',
-    required => 1,
-    lazy_build => 1,
-);
-
-sub _build_entry {}
-
 sub BUILD {
     my ($self, $args) = @_;
 

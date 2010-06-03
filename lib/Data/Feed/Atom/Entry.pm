@@ -1,38 +1,40 @@
 package Data::Feed::Atom::Entry;
 use Any::Moose;
 use Data::Feed::Web::Content;
-use List::Util qw( first );
 use XML::Atom::Entry;
 
-with 'Data::Feed::Web::Entry';
-
-has '+entry' => (
-    isa => 'XML::Atom::Entry'
+has entry => (
+    is => 'rw',
+    isa => 'XML::Atom::Entry',
+    required => 1,
+    lazy_build => 1,
+    handles => [
+        qw(title updated)
+    ]
 );
+
+# Apply after has entry, so that title() and updated() are respected
+with 'Data::Feed::Web::Entry';
 
 __PACKAGE__->meta->make_immutable;
 
 no Any::Moose;
-
-BEGIN {
-    my %methods = map { ( $_ => $_ ) } qw(title updated);
-    while ( my ( $name, $proxy ) = each %methods ) {
-        __PACKAGE__->meta->add_method(
-            $name => sub { shift->entry->$proxy(@_) } );
-    }
-}
 
 sub _build_entry { return XML::Atom::Entry->new() }
 
 sub link {
     my $entry = shift;
     if (@_) {
-        $entry->entry->add_link({ rel => 'alternate', href => $_[0],
+        return $entry->entry->add_link({ rel => 'alternate', href => $_[0],
                                     type => 'text/html', });
     } else {
-        my $l = first { !defined $_->rel || $_->rel eq 'alternate' } $entry->entry->link;
-        $l ? $l->href : undef;
+        foreach my $link ($entry->entry->link) {
+            if (defined $link && ! defined $link->rel || $link->rel eq 'alternate' ) {
+                return $link->href;
+            }
+        }
     }
+    return ();
 }
 
 sub links {
