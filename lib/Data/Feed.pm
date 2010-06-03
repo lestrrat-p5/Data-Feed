@@ -233,7 +233,7 @@ For file names, we expect a plain scalar:
 
   Data::Feed->parse( '/path/to/feed.xml' );
 
-For URI (which we will fetch via URI::Fetch), pass in an URI object:
+For URI, pass in an URI object:
 
   Data::Feed->parse( URI->new("http://example.com/feed.xml") );
 
