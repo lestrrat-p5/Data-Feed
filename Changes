@@ -1,9 +1,12 @@
 Changes
 =======
 
-0.00013 - 
+0.00013 - 3 Jun 2010
   - Made RSS enclosure parsing more tolerant of empty length values, as was
-    already the case with Atom enclosure parsing.
+    already the case with Atom enclosure parsing. (theory)
+  - 'feed' and 'entry' attributes are now moved down to the actual implementors,
+    so that the interaction is a bit cleaner.
+  - Remove List::Util dependency
 
 0.00012 - 3 Jun 2010
   - Added `parse_datetime()`, `parse_w3cdtf_date()`, and `parse_mail_date()`.

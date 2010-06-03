@@ -11,7 +11,7 @@ use DateTime::Format::ISO8601;
 
 use constant DEBUG => exists $ENV{DATA_FEED_DEBUG} ? $ENV{DATA_FEED_DEBUG} : 0;
 
-our $VERSION = '0.00012';
+our $VERSION = '0.00013';
 our $AUTHORITY = 'cpan:DMAKI';
 
 has 'parser' => (
