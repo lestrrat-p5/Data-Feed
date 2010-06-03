@@ -1,13 +1,6 @@
 package Data::Feed::Web::Feed;
 use Any::Moose '::Role';
 
-has 'feed' => (
-    is => 'ro',
-    lazy_build => 1,
-);
-
-sub _build_feed {}
-
 sub BUILD {
     my ($self, $args) = @_;
 

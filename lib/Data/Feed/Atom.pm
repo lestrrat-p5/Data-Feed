@@ -6,15 +6,17 @@ use XML::Atom::Person;
 use DateTime::Format::W3CDTF;
 use constant format => 'Atom';
 
-BEGIN {
-    my %methods = map { ( $_ => $_ ) }
-        qw(title copyright language generator id updated tagline as_xml);
-    $methods{description} = 'tagline';
-    while ( my ( $name, $proxy ) = each %methods ) {
-        __PACKAGE__->meta->add_method(
-            $name => sub { shift->feed->$proxy(@_) } );
-    }
-}
+has feed => (
+    is => 'rw',
+    isa => 'XML::Atom::Feed',
+    handles => {
+        description => 'tagline',
+        map { ( $_ => $_ ) }
+            qw(title copyright language generator id updated tagline as_xml),
+    },
+    required => 1,
+    lazy_build => 1,
+);
 
 with 'Data::Feed::Web::Feed';
 

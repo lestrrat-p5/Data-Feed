@@ -7,6 +7,11 @@ use DateTime::Format::Mail;
 
 with 'Data::Feed::Web::Feed';
 
+has feed => (
+    is => 'rw',
+    lazy_build => 1,
+);
+
 __PACKAGE__->meta->make_immutable;
 
 no Any::Moose;
