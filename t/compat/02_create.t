@@ -1,7 +1,7 @@
 # $Id$
 
 use strict;
-use Test::More tests => 69;
+use Test::More tests => 71;
 use Data::Feed;
 use DateTime;
 
@@ -34,6 +34,9 @@ for my $format (qw( Atom RSS )) {
 
     $feed->copyright('Copyright 2005 Me');
     is($feed->copyright, 'Copyright 2005 Me', "[$format] Feed copyright is correct");
+
+    $feed->icon('/favicon.ico');
+    is($feed->icon, '/favicon.ico', "[$format] Feed icon is correct");
 
     my $now = DateTime->now;
     $feed->modified($now);

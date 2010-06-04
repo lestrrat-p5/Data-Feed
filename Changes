@@ -1,6 +1,9 @@
 Changes
 =======
 
+0.00014
+  - Added `icon()` accessor to the feed classes.
+
 0.00013 - 3 Jun 2010
   - Made RSS enclosure parsing more tolerant of empty length values, as was
     already the case with Atom enclosure parsing. (theory)

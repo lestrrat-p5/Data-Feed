@@ -1,7 +1,7 @@
 # $Id: 01-parse.t 1921 2006-02-28 02:50:52Z btrott $
 
 use strict;
-use Test::More tests => 75;
+use Test::More tests => 78;
 use Data::Feed;
 use URI;
 
@@ -46,6 +46,7 @@ for my $file (sort keys %Feeds) {
     $dt->set_time_zone('UTC');
     is($dt->iso8601, '2004-05-30T07:39:57');
     is($feed->author, 'Melody');
+    is($feed->icon, $Feeds{$file} eq 'Atom' ? '/favicon.ico' : undef);
 
     my @entries = $feed->entries;
     is(scalar @entries, 2);

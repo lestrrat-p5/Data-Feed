@@ -27,6 +27,7 @@ sub title       { shift->feed->channel('title', @_) }
 sub link        { shift->feed->channel('link', @_) }
 sub description { shift->feed->channel('description', @_) }
 sub tagline     { shift->feed->channel('description', @_) }
+sub icon        { shift->feed->channel('atom:icon', @_) }
 sub as_xml      { shift->feed->as_string }
 
 ## This is RSS 2.0 only--what's the equivalent in RSS 1.0?
@@ -141,6 +142,8 @@ Data::Feed::RSS - RSS Feed
 =head2 tagline
 
 =head2 title
+
+=head2 icon
 
 =cut
 

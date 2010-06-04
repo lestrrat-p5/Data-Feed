@@ -1,5 +1,5 @@
 use strict;
-use Test::More ( tests => 19 );
+use Test::More ( tests => 20 );
 
 BEGIN {
     use_ok("Data::Feed");
@@ -14,6 +14,7 @@ $feed->title("foo");
 $feed->description("Atom 1.0 feed");
 $feed->link("http://example.org/");
 $feed->id("tag:cpan.org;xml-feed-atom");
+$feed->icon('/favicon.ico');
 $feed->updated($now);
 
 my $entry = Data::Feed::Atom::Entry->new();
@@ -42,6 +43,7 @@ is $feed->description, "Atom 1.0 feed";
 is $feed->link, "http://example.org/";
 is $feed->id, "tag:cpan.org;xml-feed-atom";
 is "".$feed->updated, "".$now;
+is $feed->icon, '/favicon.ico';
 
 my @entries = $feed->entries;
 is @entries, 1;
