@@ -11,7 +11,7 @@ requires 'DateTime::Format::Flexible';
 requires 'DateTime::Format::ISO8601';
 requires 'LWP::UserAgent';
 requires 'XML::Atom';
-requires 'XML::RSS::LibXML';
+requires 'XML::RSS::LibXML' => '0.3006';
 requires_any_moose;
 
 test_requires('Test::More');

@@ -12,7 +12,7 @@ has feed => (
     handles => {
         description => 'tagline',
         map { ( $_ => $_ ) }
-            qw(title copyright language generator id updated tagline as_xml icon),
+            qw(title copyright language generator id updated tagline as_xml icon base),
     },
     required => 1,
     lazy_build => 1,
@@ -111,6 +111,8 @@ Data::Feed::Atom - Atom Feed
 =head2 title
 
 =head2 icon
+
+=head2 base
 
 =cut
 

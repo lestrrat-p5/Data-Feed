@@ -33,6 +33,19 @@ sub as_xml      { shift->feed->as_string }
 ## This is RSS 2.0 only--what's the equivalent in RSS 1.0?
 sub copyright   { shift->feed->channel('copyright', @_) }
 
+# This is also RSS 2.0 only.
+sub base        {
+    my $f = shift->feed;
+    if (my $m = $f->can('base')) {
+        return $f->$m(@_);
+    }
+
+    if (@_) {
+        $f->{'xml:base'} = shift;
+    }
+    return $f->{'xml:base'};
+}
+
 ## The following all work transparently in any RSS version.
 sub language {
     my $feed = shift->feed;
@@ -144,6 +157,8 @@ Data::Feed::RSS - RSS Feed
 =head2 title
 
 =head2 icon
+
+=head2 base
 
 =cut
 

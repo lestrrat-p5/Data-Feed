@@ -3,6 +3,8 @@ Changes
 
 0.00014
   - Added `icon()` accessor to the feed classes.
+  - Added `base()` accessor to the feed classes (requires XML::RSS::LibXML
+    0.3006 for RSS support).
 
 0.00013 - 3 Jun 2010
   - Made RSS enclosure parsing more tolerant of empty length values, as was

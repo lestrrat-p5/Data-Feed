@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<rss version="2.0" xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:base="http://hey.com/">
 <channel>
 <title>First Weblog</title>
 <link>http://localhost/weblog/</link>
