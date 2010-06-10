@@ -1,5 +1,5 @@
 use strict;
-use Test::More (tests => 26);
+use Test::More (tests => 34);
 
 BEGIN {
     use_ok("Data::Feed");
@@ -17,7 +17,13 @@ BEGIN {
 
     for my $entry (@entries) {
         ok( $entry->title );
+        isa_ok( $entry->content, 'Data::Feed::Web::Content' );
+        isa_ok( $entry->summary, 'Data::Feed::Web::Content' );
     }
+    is $entries[0]->summary->body, 'Hello!...', 'First entry summary body';
+    is $entries[1]->summary->body, '', 'Second entry summary body';
+    is $entries[0]->content->body, '<p>Hello!</p>', 'First entry content body';
+    is $entries[1]->content->body, '', 'Second entry content body';
 }
 
 SKIP: {

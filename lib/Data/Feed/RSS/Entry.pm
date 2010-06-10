@@ -78,7 +78,7 @@ sub summary {
 
         Data::Feed::Web::Content->new(
             type => 'text/html',
-            body => $txt,
+            body => defined $txt ? $txt : '',
         );
     }
 }
@@ -97,7 +97,7 @@ sub content {
             $item->{description};
         Data::Feed::Web::Content->new(
             type => 'text/html',
-            body => $body,
+            body => defined $body ? $body : '',
         );
     }
 }

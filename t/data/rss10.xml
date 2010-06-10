@@ -40,10 +40,6 @@ xml:base="http://hey.com/">
 <item rdf:about="http://localhost/weblog/2004/05/test.html">
 <title>Test</title>
 <link>http://localhost/weblog/2004/05/test.html</link>
-<description>This is a test. Why don&apos;t you come down to our place for a coffee and a chat?...</description>
-<content:encoded><![CDATA[<p>This is a test.</p>
-
-<p>Why don't you come down to our place for a coffee and a <strong>chat</strong>?</p>]]></content:encoded>
 <dc:subject>Sports</dc:subject>
 <dc:creator>Melody</dc:creator>
 <dc:date>2004-05-08T23:03:28-08:00</dc:date>
