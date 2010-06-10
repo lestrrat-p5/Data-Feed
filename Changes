@@ -8,6 +8,8 @@ Changes
   - Missing descriptions and contents from parsed RSS feeds are now set to
     empty strings instead of throwing an exception. Such was already the case
     for parsed Atom feeds.
+  - Missing type attributes in parsed enclosures no longer trigger an
+    exception, but are set to an empty string.
 
 0.00013 - 3 Jun 2010
   - Made RSS enclosure parsing more tolerant of empty length values, as was

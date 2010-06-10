@@ -133,7 +133,7 @@ sub enclosures {
             url => $link->href,
         );
         $enclosure->length($link->length) if $link->length;
-        $enclosure->type($link->type);
+        $enclosure->type($link->type) if $link->type;
         push @enclosures, $enclosure;
     }
 

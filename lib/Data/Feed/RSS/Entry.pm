@@ -178,6 +178,7 @@ sub enclosures {
     my @enclosures;
     for my $enclosure ($self->__enclosures) {
         delete $enclosure->{length} unless $enclosure->{length};
+        delete $enclosure->{type} unless $enclosure->{type};
         push @enclosures, Data::Feed::Web::Enclosure->new(
             %$enclosure
         );
