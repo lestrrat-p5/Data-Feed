@@ -1,15 +1,15 @@
 Changes
 =======
 
-0.00014
-  - Added `icon()` accessor to the feed classes.
+0.00014 - 22 un 2010
+  - Added `icon()` accessor to the feed classes. (theory)
   - Added `base()` accessor to the feed classes (requires XML::RSS::LibXML
-    0.3006 for RSS support).
+    0.3006 for RSS support). (theory)
   - Missing descriptions and contents from parsed RSS feeds are now set to
     empty strings instead of throwing an exception. Such was already the case
-    for parsed Atom feeds.
+    for parsed Atom feeds. (theory)
   - Missing type attributes in parsed enclosures no longer trigger an
-    exception, but are set to an empty string.
+    exception, but are set to an empty string. (theory)
 
 0.00013 - 3 Jun 2010
   - Made RSS enclosure parsing more tolerant of empty length values, as was
