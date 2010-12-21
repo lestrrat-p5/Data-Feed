@@ -140,21 +140,11 @@ sub enclosures {
     @enclosures;
 }
 
-# Nasty hack for now, which only works with LibXML
-# use Data::Feed;
-#
-# my $feed = Data::Feed->parse(@ARGV);
-# my @entries = $feed->entries;
-#
-# foreach my $entry (@entries) {
-#     my ($element) = $entry->extract_node( "origLink" => "feedburner" );
-#     warn $element->textContent;
-# }
-
-sub extract_node {
+sub extract_node_values {
     my ($self, $tagname, $namespace) = @_;
     $tagname = "$namespace:$tagname" if $namespace;
-    my @elements = $self->entry->{elem}->getElementsByTagName( $tagname );
+    my @elements = map { $_->textContent }
+        $self->entry->{elem}->getElementsByTagName( $tagname );
     return @elements;
 }
 
@@ -187,6 +177,10 @@ Data::Feed::Atom::Entry - An Atom Entry
 =head2 summary
 
 =head2 title
+
+=head2 @values = extract_node_values( $tagname, $namespace )
+
+Attempts to extract value(s) of a random child node specified by the $tagname and $namespace
 
 =cut
 

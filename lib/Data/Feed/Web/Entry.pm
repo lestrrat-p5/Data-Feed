@@ -16,6 +16,7 @@ sub BUILD {
     return $self;
 }
 
+requires 'extract_node_values';
 requires 'title';
 requires 'link';
 requires 'content';
