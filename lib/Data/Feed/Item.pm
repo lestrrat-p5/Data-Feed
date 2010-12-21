@@ -2,7 +2,7 @@
 package Data::Feed::Item;
 use Any::Moose '::Role';
 
-no Any::Moose '::Item';
+no Any::Moose '::Role';
 
 1;
 
