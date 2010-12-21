@@ -140,6 +140,24 @@ sub enclosures {
     @enclosures;
 }
 
+# Nasty hack for now, which only works with LibXML
+# use Data::Feed;
+#
+# my $feed = Data::Feed->parse(@ARGV);
+# my @entries = $feed->entries;
+#
+# foreach my $entry (@entries) {
+#     my ($element) = $entry->extract_node( "origLink" => "feedburner" );
+#     warn $element->textContent;
+# }
+
+sub extract_node {
+    my ($self, $tagname, $namespace) = @_;
+    $tagname = "$namespace:$tagname" if $namespace;
+    my @elements = $self->entry->{elem}->getElementsByTagName( $tagname );
+    return @elements;
+}
+
 1;
 
 __END__
