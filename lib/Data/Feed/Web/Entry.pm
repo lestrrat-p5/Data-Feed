@@ -8,7 +8,7 @@ sub BUILD {
     my ($self, $args) = @_;
 
     my $entry = $self->entry;
-    foreach my $method qw( title link content summary category author id issued modified ) {
+    foreach my $method (qw( title link content summary category author id issued modified )) {
         if (exists $args->{$method}) {
             $self->$method( $args->{ $method } );
         }
