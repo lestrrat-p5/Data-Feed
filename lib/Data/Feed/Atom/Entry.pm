@@ -140,6 +140,14 @@ sub enclosures {
     @enclosures;
 }
 
+sub extract_node_values {
+    my ($self, $tagname, $namespace) = @_;
+    $tagname = "$namespace:$tagname" if $namespace;
+    my @elements = map { $_->textContent }
+        $self->entry->{elem}->getElementsByTagName( $tagname );
+    return @elements;
+}
+
 1;
 
 __END__
@@ -169,6 +177,10 @@ Data::Feed::Atom::Entry - An Atom Entry
 =head2 summary
 
 =head2 title
+
+=head2 @values = extract_node_values( $tagname, $namespace )
+
+Attempts to extract value(s) of a random child node specified by the $tagname and $namespace
 
 =cut
 

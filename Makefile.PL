@@ -14,7 +14,7 @@ requires 'XML::Atom';
 requires 'XML::RSS::LibXML' => '0.3006';
 requires_any_moose;
 
-test_requires('Test::More');
+test_requires('Test::More' => '0.84');
 test_requires('Test::UseAllModules');
 
 tests('t/*.t t/*/*.t');

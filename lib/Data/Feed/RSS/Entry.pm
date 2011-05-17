@@ -206,6 +206,13 @@ sub media_contents {
     ;
 }
 
+sub extract_node_values {
+    my ($self, $tagname, $namespace) = @_;
+    my $item = $self->entry;
+    my $result = $item->{ $namespace }->{$tagname};
+    return ref $result eq 'ARRAY' ? @$result : ($result);
+}
+
 sub __enclosures {
     my $item = shift->entry;
 
@@ -250,5 +257,8 @@ If the RSS is a MediaRSS, returns a list of media associated with the entry.
 
 =head2 title
 
+=head2 @values = extract_node_values( $tagname, $namespace )
+
+Attempts to extract value(s) of a random child node specified by the $tagname and $namespace
 
 =cut
