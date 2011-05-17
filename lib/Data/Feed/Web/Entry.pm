@@ -8,7 +8,7 @@ sub BUILD {
     my ($self, $args) = @_;
 
     my $entry = $self->entry;
-    foreach my $method qw( title link content summary category author id issued modified ) {
+    foreach my $method (qw( title link content summary category author id issued modified )) {
         if (exists $args->{$method}) {
             $self->$method( $args->{ $method } );
         }
@@ -16,6 +16,7 @@ sub BUILD {
     return $self;
 }
 
+requires 'extract_node_values';
 requires 'title';
 requires 'link';
 requires 'content';

@@ -4,7 +4,7 @@ use Any::Moose '::Role';
 sub BUILD {
     my ($self, $args) = @_;
 
-    foreach my $method qw( author copyright description format generator language link modified title ) {
+    foreach my $method (qw( author copyright description format generator language link modified title )) {
         if ( exists $args->{$method} ) {
             $self->$method( $args->{$method} );
         }
