@@ -1,7 +1,12 @@
 Changes
 =======
 
-0.00014 - 22 un 2010
+0.00015 - 06 Jul 2011
+  - Fix perl 5.14 qw() deprecation warnings (theory)
+  - Add extract_node_values() to access arbitrary node values (LibXML only) (theory)
+  - Fix stupid typo in Item class
+
+0.00014 - 22 Jun 2010
   - Added `icon()` accessor to the feed classes. (theory)
   - Added `base()` accessor to the feed classes (requires XML::RSS::LibXML
     0.3006 for RSS support). (theory)
