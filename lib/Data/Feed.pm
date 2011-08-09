@@ -130,7 +130,7 @@ sub fetch_stream {
             if ( $res->code == 410 ) {
                 Carp::confess("This feed has been permanently removed");
             }
-            $content = $res->decoded_content;
+            $content = $res->decoded_content(charset => 'none');
         }
         elsif ( $ref eq 'SCALAR' ) {
             $content = $$stream;
