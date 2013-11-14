@@ -1,13 +1,13 @@
 package Data::Feed::Atom::Entry;
-use Any::Moose;
+use Moo;
+use MooX::HandlesVia;
 use Data::Feed::Web::Content;
 use XML::Atom::Entry;
 
 has entry => (
-    is => 'rw',
-    isa => 'XML::Atom::Entry',
+    is => 'lazy',
     required => 1,
-    lazy_build => 1,
+    handles_via => 'XML::Atom::Entry',
     handles => [
         qw(title updated)
     ]
@@ -15,10 +15,6 @@ has entry => (
 
 # Apply after has entry, so that title() and updated() are respected
 with 'Data::Feed::Web::Entry';
-
-__PACKAGE__->meta->make_immutable;
-
-no Any::Moose;
 
 sub _build_entry { return XML::Atom::Entry->new() }
 

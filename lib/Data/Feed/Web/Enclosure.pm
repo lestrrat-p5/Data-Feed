@@ -1,27 +1,20 @@
 
 package Data::Feed::Web::Enclosure;
 
-use Any::Moose;
+use Moo;
 
 has 'url' => (
     is => 'rw',
-    isa => 'Str',
     required => 1,
 );
 
 has 'length' => (
     is => 'rw',
-    isa => 'Int',
 );
 
 has 'type' => (
     is => 'rw',
-    isa => 'Str',
 );
-
-__PACKAGE__->meta->make_immutable;
-
-no Any::Moose;
 
 1;
 

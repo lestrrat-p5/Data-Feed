@@ -1,5 +1,5 @@
 package Data::Feed::Web::Entry;
-use Any::Moose '::Role';
+use Moo::Role;
 use Data::Feed::Web::Enclosure;
 
 with 'Data::Feed::Item';
@@ -27,8 +27,6 @@ requires 'id';
 requires 'issued';
 requires 'modified';
 requires 'enclosures';
-
-no Any::Moose '::Role';
 
 1;
 

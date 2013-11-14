@@ -12,7 +12,9 @@ requires 'DateTime::Format::ISO8601';
 requires 'LWP::UserAgent';
 requires 'XML::Atom';
 requires 'XML::RSS::LibXML' => '0.3101';
-requires_any_moose;
+requires 'Moo';
+requires 'MooX::HandlesVia';
+requires 'Class::Load' => '0.20';
 
 test_requires('Test::More' => '0.84');
 test_requires('Test::UseAllModules');

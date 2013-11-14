@@ -1,6 +1,6 @@
 
 package Data::Feed::RSS;
-use Any::Moose;
+use Moo;
 use Data::Feed::Parser::RSS;
 use Data::Feed::RSS::Entry;
 use DateTime::Format::Mail;
@@ -8,13 +8,8 @@ use DateTime::Format::Mail;
 with 'Data::Feed::Web::Feed';
 
 has feed => (
-    is => 'rw',
-    lazy_build => 1,
+    is => 'lazy',
 );
-
-__PACKAGE__->meta->make_immutable;
-
-no Any::Moose;
 
 sub _build_feed {
     return $Data::Feed::Parser::RSS::PARSER_CLASS->new( version => '2.0');

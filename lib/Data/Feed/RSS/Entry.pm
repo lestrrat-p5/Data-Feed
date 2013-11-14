@@ -1,6 +1,6 @@
 
 package Data::Feed::RSS::Entry;
-use Any::Moose;
+use Moo;
 use Carp ();
 use Data::Feed::Web::Content;
 use DateTime::Format::Mail;
@@ -8,18 +8,12 @@ use DateTime::Format::W3CDTF;
 use Scalar::Util ();
 
 has entry => (
-    is => 'rw',
-    isa => 'HashRef',
+    is => 'lazy',
     required => 1,
-    lazy_build => 1,
 );
 
 # Apply after has entry, so that title() and updated() are respected
 with 'Data::Feed::Web::Entry';
-
-__PACKAGE__->meta->make_immutable;
-
-no Any::Moose;
 
 sub _build_entry {
     return {}

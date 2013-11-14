@@ -1,5 +1,6 @@
 package Data::Feed::Atom;
-use Any::Moose;
+use Moo;
+use MooX::HandlesVia;
 use Data::Feed::Atom::Entry;
 use XML::Atom::Feed;
 use XML::Atom::Person;
@@ -7,22 +8,17 @@ use DateTime::Format::W3CDTF;
 use constant format => 'Atom';
 
 has feed => (
-    is => 'rw',
-    isa => 'XML::Atom::Feed',
+    is => 'lazy',
+    handles_via => 'XML::Atom::Feed',
     handles => {
         description => 'tagline',
         map { ( $_ => $_ ) }
             qw(title copyright language generator id updated tagline as_xml icon base),
     },
     required => 1,
-    lazy_build => 1,
 );
 
 with 'Data::Feed::Web::Feed';
-
-__PACKAGE__->meta->make_immutable;
-
-no Any::Moose;
 
 sub _build_feed {
     return XML::Atom::Feed->new;

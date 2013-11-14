@@ -1,19 +1,14 @@
 package Data::Feed::Web::Content;
-use Any::Moose;
+use Moo;
 
 has 'type' => (
     is => 'rw',
-    isa => 'Str',
 );
 
 has 'body' => (
     is => 'rw',
-    isa => 'Str',
 );
 
-__PACKAGE__->meta->make_immutable;
-
-no Any::Moose;
 
 1;
 
