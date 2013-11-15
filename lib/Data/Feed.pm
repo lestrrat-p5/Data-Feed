@@ -1,8 +1,9 @@
 package Data::Feed;
-use Any::Moose;
 use Carp();
 use Scalar::Util ();
 use LWP::UserAgent;
+use Moo;
+use Class::Load ':all';
 use DateTime::Format::Mail;
 use DateTime::Format::W3CDTF;
 use DateTime::Format::Natural;
@@ -16,12 +17,7 @@ our $AUTHORITY = 'cpan:DMAKI';
 
 has 'parser' => (
     is => 'rw',
-    does => 'Data::Feed::Parser',
 );
-
-__PACKAGE__->meta->make_immutable;
-
-no Any::Moose;
 
 sub parse {
     my ($self, $stream) = @_;
@@ -62,7 +58,7 @@ sub find_parser {
 
     my $class = join( '::', Scalar::Util::blessed($self), 'Parser', $format );
 
-    Any::Moose::load_class($class);
+    load_class($class);
 
     return $class->new();
 }

@@ -1,6 +1,6 @@
-
 package Data::Feed::Parser::RSS;
-use Any::Moose;
+use Class::Load ':all';
+use Moo;
 use Data::Feed;
 use Data::Feed::RSS;
 use Carp();
@@ -13,7 +13,7 @@ BEGIN {
         qw(XML::RSS::LibXML XML::RSS);
 
     foreach my $module (@candidates) {
-        eval { Any::Moose::load_class($module) };
+        eval { load_class($module) };
         warn if &Data::Feed::DEBUG && $@;
         next if $@;
 
@@ -27,10 +27,6 @@ BEGIN {
 }
 
 with 'Data::Feed::Parser';
-
-__PACKAGE__->meta->make_immutable;
-
-no Any::Moose;
 
 sub parse {
     my ($self, $xmlref) = @_;

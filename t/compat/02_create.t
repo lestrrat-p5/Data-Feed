@@ -4,10 +4,11 @@ use strict;
 use Test::More tests => 73;
 use Data::Feed;
 use DateTime;
+use Class::Load ':all';
 
 for my $format (qw( Atom RSS )) {
     my $feed_class = "Data::Feed::$format";
-    Any::Moose::load_class $feed_class;
+    load_class $feed_class;
 
     my $feed = $feed_class->new();
 
@@ -52,7 +53,7 @@ for my $format (qw( Atom RSS )) {
     ok($feed->as_xml, 'as_xml returns something');
 
     my $entry_class = "${feed_class}::Entry";
-    Any::Moose::load_class $entry_class;
+    load_class $entry_class;
 
     my $entry = $entry_class->new();
     isa_ok($entry, $entry_class);

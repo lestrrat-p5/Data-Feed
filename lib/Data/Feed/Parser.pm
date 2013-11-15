@@ -1,10 +1,8 @@
 
 package Data::Feed::Parser;
-use Any::Moose '::Role';
+use Moo::Role;
 
 requires 'parse';
-
-no Any::Moose '::Role';
 
 1;
 

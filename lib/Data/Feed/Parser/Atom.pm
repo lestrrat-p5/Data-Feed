@@ -1,14 +1,10 @@
 
 package Data::Feed::Parser::Atom;
-use Any::Moose;
+use Moo;
 use Data::Feed::Atom;
 use XML::Atom::Feed;
 
 with 'Data::Feed::Parser';
-
-__PACKAGE__->meta->make_immutable;
-
-no Any::Moose;
 
 sub parse {
     my ($self, $xmlref) = @_;

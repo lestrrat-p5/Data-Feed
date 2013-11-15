@@ -1,8 +1,7 @@
 
 package Data::Feed::Feed;
-use Any::Moose '::Role';
+use Moo::Role;
 
-no Any::Moose '::Role';
 
 1;
 

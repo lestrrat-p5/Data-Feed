@@ -1,5 +1,5 @@
 package Data::Feed::Web::Feed;
-use Any::Moose '::Role';
+use Moo::Role;
 
 sub BUILD {
     my ($self, $args) = @_;
@@ -31,8 +31,6 @@ requires qw(
     modified
     title
 );
-
-no Any::Moose '::Role';
 
 1;
 

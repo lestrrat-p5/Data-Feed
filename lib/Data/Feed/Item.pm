@@ -1,8 +1,6 @@
 
 package Data::Feed::Item;
-use Any::Moose '::Role';
-
-no Any::Moose '::Role';
+use Moo::Role;
 
 1;
 
